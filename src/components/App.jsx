@@ -1,14 +1,15 @@
-import { Profile } from './Profile/Profile';
-import { Statistics } from './Statistics/Statistics';
-import { FriendList } from './FriendList/FriendList';
-import { TransactionHistory } from './Transactions/Transactions';
+import { Profile }  from './Profile/Profile';
+import { Statistics }  from './Statistics/Statistics';
+import  FriendList   from './FriendList/FriendList';
+import  FriendListItem  from './FriendListItem/FriendListItem';
+import  TransactionHistory  from './Transactions/TransactionHistory';
 
-import user from './Data/user.json';
-import data from './Data/data.json';
-import friends from './Data/friends.json';
-import transactions from './Data/transactions.json';
+import user from './Profile/user.json';
+import data from './Statistics/data.json';
+import friends from './FriendList/friends.json';
+import transactions from './Transactions/transactions.json';
 
-export const App = () => {
+function App() {
   return (
     <div>
       <Profile
@@ -19,8 +20,22 @@ export const App = () => {
         stats={user.stats}
       />
       <Statistics title="Upload stats" stats={data} />
-      <FriendList friends={friends} />
-      <TransactionHistory items={transactions} />
+      
+      <FriendList>
+        {friends.map(friend => (
+          <FriendListItem
+            key={friend.id}
+            avatar={friend.avatar}
+            name={friend.name}
+            isOnline={friend.isOnline}
+            id={friend.id}
+          />
+        ))}
+      </FriendList>
+      <TransactionHistory items={transactions} />;
     </div>
   );
-};
+}
+
+export default App;
+
